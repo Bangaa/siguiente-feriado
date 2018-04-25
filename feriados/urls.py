@@ -5,10 +5,9 @@
 #
 # Distributed under terms of the GPL license.
 
-from django.urls import path
+from django.urls import path, re_path
 from feriados import views
 
 urlpatterns = [
-    path('', views.list),
-    path('<int:feriado_id>/', views.detail),
+    re_path(r'(?P<year>\d{4})/', views.list),
 ]

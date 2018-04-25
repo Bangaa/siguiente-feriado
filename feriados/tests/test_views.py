@@ -14,37 +14,18 @@ false = False   # para poder convertir el contenido que devuelve la api
 
 @tag('wip')
 class ViewListTests(TestCase):
-    def test_can_retrieve_all_feriados_from_api(self):
-        """Testing GET /api/feriados/ """
+    def test_can_retrieve_all_feriados_of_a_year(self):
+        """Testing GET /api/feriados/search? """
         Feriado.objects.create(fecha=date(2018,5,21))
+        Feriado.objects.create(fecha=date(2019,1,1))
         Feriado.objects.create(fecha=date(2018,1,1))
 
-        response = self.client.get('/api/feriados/')
+        response = self.client.get('/api/feriados/2018/')
         self.assertEqual(response.status_code, 200)
         lista = eval(response.content)
         self.assertEqual(len(lista), 2)
 
-    def test_can_retrieve_specific_feriado(self):
-        """Testing GET /api/feriados/<feriado_id>/ """
-        fs = [
-            Feriado.objects.create(fecha=date(2018,5,21), festividad='21 de mayo'),
-            Feriado.objects.create(fecha=date(2018,1,1), festividad='Año nuevo'),
-        ]
-
-        for i in range(2):
-            url = "/api/feriados/{id}/".format(id=i+1)
-            with self.subTest(url=url):
-                response = self.client.get(url)
-                self.assertEqual(response.status_code, 200)
-                feriado = eval(response.content)
-                self.assertEqual(feriado.get('festividad'), fs[i].festividad)
-
-    @unittest.skip
-    def test_cant_POST_duplicated_feriados(self):
-        self.client.post('/api/feriados/', data={'fecha': '2018-05-01'})
-        response = self.client.post('/api/feriados/', data={'fecha': '2018-05-01'})
+    def test_cant_POST(self):
+        response = self.client.post('/api/feriados/2018/', data={'fecha': '2018-05-01'})
         self.assertEqual(response.status_code, 400) # bad request
-
-        self.assertEqual(Feriado.objects.count(), 1)
-        self.assertEqual(Feriado.objects.first().fecha, date(2018, 5, 1))
 
