@@ -12,7 +12,6 @@ from datetime import date
 
 false = False   # para poder convertir el contenido que devuelve la api
 
-@tag('wip')
 class ViewListTests(TestCase):
     def test_can_retrieve_all_feriados_of_a_year(self):
         """Testing GET /api/feriados/search? """

@@ -15,8 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
+import staticpages.views as staticviews
 
 urlpatterns = [
+    path('', staticviews.home, name='home'),
     path('admin/', admin.site.urls),
     path('api/feriados/', include('feriados.urls'))
 ]
