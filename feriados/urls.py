@@ -3,7 +3,8 @@
 #
 # Copyright © 2018 Ian Mejias
 #
-# Distributed under terms of the GPL license.
+# Distributed under terms of the GNU AGPLv3 license.
+
 
 from django.urls import path, re_path
 from feriados import views
