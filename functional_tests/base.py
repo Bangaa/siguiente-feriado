@@ -1,3 +1,10 @@
+# -*- coding: utf-8 -*-
+# vim:fenc=utf-8
+#
+# Copyright © 2018 Ian Mejias
+#
+# Distributed under terms of the GNU AGPLv3 license.
+
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
 import os
