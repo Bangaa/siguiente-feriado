@@ -1,5 +1,11 @@
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
+import os
+import re
+
+SCREEN_DUMP_LOCATION = os.path.join(
+    os.path.dirname(os.path.abspath(__file__)), 'screendumps'
+)
 
 def wait(max_wait):
     """Decorator. Wait for a helper to be executed succesfully for 'max_wait'
@@ -58,7 +64,6 @@ class FunctionalTest(StaticLiveServerTestCase):
             f.write(self.browser.page_source)
 
     def _get_filename(self):
-        timestamp = datetime.now().isoformat().replace(':', '.')[:19]
         m = re.match(r'(?P<module>.*)?\.(?P<testname>\w+)$', self.id())
         return '{folder}/{method}-{module}-window{windowid}'.format(
             folder=SCREEN_DUMP_LOCATION,
