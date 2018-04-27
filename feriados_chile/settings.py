@@ -126,9 +126,9 @@ STATIC_ROOT = os.path.abspath(os.path.join(BASE_DIR, '../static'))
 
 # Facil configuracion del proyecto en Heroku
 
-import django_heroku
-
-django_heroku.settings(
-    locals(),
-    secret_key=False
-)
+if os.getenv('DJANGO_IN_PRODUCTION', default=False):
+    import django_heroku
+    django_heroku.settings(
+        locals(),
+        secret_key=False
+    )
