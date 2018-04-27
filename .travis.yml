@@ -1,0 +1,19 @@
+language: python
+python:
+  - "3.5"
+  - "3.6"
+install:
+  - pip install -r requirements.txt
+  - npm install geckodriver
+git:
+  depth: 5
+branches:
+  only:
+    - master
+    - develop
+addons:
+  firefox: latest
+script:
+  - python manage.py test
+
+# vim:set et sw=2 sts=-1 fdm=indent:
