@@ -25,7 +25,7 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DJANGO_DEBUG', False)
 
-ALLOWED_HOSTS = ['blooming-castle-41051.herokuapp.com']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -123,3 +123,12 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.abspath(os.path.join(BASE_DIR, '../static'))
+
+# Facil configuracion del proyecto en Heroku
+
+import django_heroku
+
+django_heroku.settings(
+    locals(),
+    secret_key=False
+)
