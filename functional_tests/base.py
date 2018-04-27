@@ -25,6 +25,8 @@ def wait(max_wait):
     return wait_for_success
 
 class FunctionalTest(StaticLiveServerTestCase):
+    tags = {'functional-test'}
+
     def setUp(self):
         self.browser = webdriver.Firefox()
         self.browser.get(self.live_server_url)
