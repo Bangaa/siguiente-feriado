@@ -7,6 +7,10 @@
 
 
 from django.shortcuts import render
+from feriados.models import Feriado, DeltaFeriado
+from datetime import date
 
 def home(request):
-    return render(request, 'home.html')
+    feriado = Feriado.objects.filter(fecha__gt=date.today()).first()
+    delta = DeltaFeriado(feriado)
+    return render(request, 'home.html', context={'feriado': feriado, 'delta':delta})

@@ -7,8 +7,10 @@
 
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
+from selenium.common.exceptions import WebDriverException
 import os
 import re
+import time
 
 SCREEN_DUMP_LOCATION = os.path.join(
     os.path.dirname(os.path.abspath(__file__)), 'screendumps'
@@ -42,7 +44,6 @@ class FunctionalTest(StaticLiveServerTestCase):
 
     def setUp(self):
         self.browser = webdriver.Firefox()
-        self.browser.get(self.live_server_url)
 
     def tearDown(self):
         if self._test_has_failed():
@@ -67,8 +68,8 @@ class FunctionalTest(StaticLiveServerTestCase):
     def dump_html(self):
         filename = self._get_filename() + '.html'
         print('dumping page HTML to', filename)
-        with open(filename, 'w') as f:
-            f.write(self.browser.page_source)
+        with open(filename, 'wb') as f:
+            f.write(self.browser.page_source.encode(encoding='utf-8'))
 
     def _get_filename(self):
         m = re.match(r'(?P<module>.*)?\.(?P<testname>\w+)$', self.id())

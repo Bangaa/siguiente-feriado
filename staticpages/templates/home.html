@@ -10,7 +10,11 @@
     <th>Días</th><th>Horas</th><th>Minutos</th>
   </thead>
   <tbody>
+    {% if delta %}
+    <td>{{ delta.dias|stringformat:"02d" }}</td><td>{{ delta.horas|stringformat:"02d" }}</td><td>{{ delta.minutos|stringformat:"02d" }}</td>
+    {% else %}
     <td>99</td><td>99</td><td>99</td>
+    {% endif %}
   </tbody>
 </table>
 {% endblock main_content %}

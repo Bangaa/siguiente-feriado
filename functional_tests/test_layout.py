@@ -5,14 +5,19 @@
 #
 # Distributed under terms of the GNU AGPLv3 license.
 
-from .base import FunctionalTest
+from .base import FunctionalTest, wait
+
+@wait(10)
+def get_main_container(test):
+    return test.browser.find_element_by_tag_name('main')
 
 class BootstrapLayoutTesting(FunctionalTest):
     def test_home_is_loading_correct_css(self):
         # juanito se dirige a la página principal y ve el contador del próximo
         # feriado centrado en la página.
+        self.browser.get(self.live_server_url)
         self.browser.set_window_size(1024, 768)
-        main_container = self.browser.find_element_by_css_selector('main')
+        main_container = get_main_container(self)
 
         self.assertAlmostEqual(
             main_container.location['x'] + main_container.size['width']/2,

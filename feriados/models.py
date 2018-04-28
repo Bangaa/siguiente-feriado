@@ -42,3 +42,14 @@ class Feriado(models.Model):
 
     class Meta:
         ordering = ('fecha',)
+
+from datetime import datetime
+class DeltaFeriado(object):
+    def __init__(self, feriado):
+        if feriado is None:
+            return None
+        delta = datetime(*feriado.fecha.timetuple()[:6]) - datetime.now()
+        self.dias = delta.days
+        self.horas = delta.seconds // 3600
+        self.minutos = delta.seconds%3600 // 60
+
