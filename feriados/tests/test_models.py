@@ -31,3 +31,11 @@ class ModelTests(TestCase):
         self.assertEqual(fer2016.count(), 2)
         self.assertEqual(fer2018.count(), 1)
 
+    def test_feriados_are_ordered_by_fecha(self):
+        f1 = Feriado.objects.create(fecha='2032-01-27')
+        f2 = Feriado.objects.create(fecha='2032-01-02')
+        f3 = Feriado.objects.create(fecha='2032-01-15')
+
+        lista = Feriado.objects.all()
+
+        self.assertEqual(list(lista), [f2,f3,f1])

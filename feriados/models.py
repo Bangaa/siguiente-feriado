@@ -39,3 +39,6 @@ class Feriado(models.Model):
     )
 
     objects = FeriadoManager()
+
+    class Meta:
+        ordering = ('fecha',)
