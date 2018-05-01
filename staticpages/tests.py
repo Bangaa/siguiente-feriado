@@ -4,7 +4,7 @@ from django.test import TestCase
 from feriados.models import Feriado
 from datetime import date, timedelta
 
-class ViewsTests(TestCase):
+class HomeViewTests(TestCase):
     @unittest.mock.patch('staticpages.views.Feriado')
     @unittest.mock.patch('staticpages.views.DeltaFeriado')
     def test_home_uses_homeDotHtml_template(self, DeltaFeriado_m, Feriado_m):
@@ -42,3 +42,10 @@ class ViewsTests(TestCase):
         Feriado_m.objects.filter().first.return_value = None
         response = self.client.get('/')
         self.assertIsNone(response.context['feriado'])
+
+class ErrorPagesTets(TestCase):
+    def test_non_existing_urls_render_404DotHtml_template(self):
+        response = self.client.get('/haslkdhashdkasjhkjhdoesnt_exist')
+        self.assertEqual(response.status_code, 404)
+        self.assertTemplateUsed(response, '404.html')
+

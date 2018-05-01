@@ -15,7 +15,6 @@ def get_countdown_table(test):
     return test.browser.find_element_by_css_selector('table.countdown-table')
 
 class FeriadoCounterTests(FunctionalTest):
-    @tag('wip')
     def test_countdown_show_correct_time_till_next_feriado(self):
         """
         Juanito se encuentra en la pagina principal y, sabiendo que manyana
