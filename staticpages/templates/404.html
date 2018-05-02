@@ -2,8 +2,5 @@
 {% extends 'base.html' %}
 
 {% block main_content %}
-  <h1>Error 404</h1>
-  <p class="lead">
-    Al parecer, la página que intentabas acceder no existe.
-  </p>
+{% include '_error_message.html' with error_code='404' error_message='Al parecer, la página que intentabas acceder no existe.' %}
 {% endblock main_content %}
