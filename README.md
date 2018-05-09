@@ -9,8 +9,8 @@ agregado de funcionalidades será con respecto a ese funcionalidad.
 
 ## ¿Como usar la API?
 
-En [este link][api_link] aparece toda la información sobre como usar la API y los 
-requerimientos para usarla. Se irá actualizando a medida que agrege más 
+En [este link][api_link] aparece toda la información sobre como usar la API y 
+los requerimientos para usarla. Se irá actualizando a medida que agrege más 
 funcionalidades a la misma y/o cambien las condiciones.
 
-[api_link]: https://blooming-castle-41051.herokuapp.com/api-info/
+[api_link]: https://proximoferiado.herokuapp.com/api-info/
