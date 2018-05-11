@@ -7,32 +7,39 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>{% block page_title %}Cuenta regresiva | Feriados{% endblock %}</title>
+    <title>{% block page_title %}Proximo feriado{% endblock %}</title>
 
     <!-- Bootstrap core CSS -->
     <link href="/static/bootstrap-4.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="/static/custom.css" rel="stylesheet">
   </head>
 
   <body class="text-center">
-    <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
-      <header class="masthead mb-auto">
-          <nav class="nav nav-masthead ">
-            <a class="nav-link active" href="#">Home</a>
-          </nav>
-      </header>
+    <div class="container-fluid">
+      <div class="row h-100">
+        <div class="col-sm-12 col-md-5 mx-auto homecontainer">
+          <header class="homeheader">
+            <nav class="navbar navbar-expand-md navbar-light">
+              <a class="nav-link active" href="#">Home</a>
+            </nav>
+          </header>
 
-      <main role="main" class="inner cover my-auto">
-        {% block main_content %}{% endblock %}
-      </main>
+          <main>{% block main_content %}{% endblock %}</main>
 
-      <footer class="mastfoot mt-auto">
-        <div class="inner">
-          <p>Gracias a <a href="https://twitter.com/mdo">@mdo</a> por el template base.</p>
+          <footer class="homefooter p-3">
+            <p class="font-weight-light">
+              Puedes encontrarme en <span class="font-weight-bold"><a href="https://github.com/Bangaa/siguiente-feriado">GitHub</a></span>
+            </p>
+          </footer>
         </div>
-      </footer>
+      </div>
     </div>
+    <!-- optional javascript -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="/static/bootstrap-4.0.0/js/bootstrap.min.js"></script>
   </body>
 </html>
