@@ -12,5 +12,5 @@ from datetime import date
 
 def home(request):
     feriado = Feriado.objects.filter(fecha__gt=date.today()).first()
-    delta = DeltaFeriado(feriado)
+    delta = DeltaFeriado(feriado, 'Chile/Continental')
     return render(request, 'home.html', context={'feriado': feriado, 'delta':delta})
