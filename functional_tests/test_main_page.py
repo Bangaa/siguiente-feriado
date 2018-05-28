@@ -40,7 +40,7 @@ class FeriadoCounterTests(FunctionalTest):
 
         # primero compara los dias
 
-        self.assertEqual(delta_pagina['dias'], delta_juanito.days)
+        self.assertEqual(delta_pagina['dias'], delta_juanito.days, "Dias no coinciden")
 
         # y luego compara los minutos totales, con un margen de error (segun
         # lo que se haya demorado el en hacer el calculo: 1 minuto)
@@ -48,4 +48,4 @@ class FeriadoCounterTests(FunctionalTest):
         minutos_pagina = delta_pagina['horas']*60 + delta_pagina['minutos']
         minutos_juanito = delta_juanito.seconds // 60
 
-        self.assertAlmostEqual(minutos_pagina, minutos_juanito, delta=1)
+        self.assertAlmostEqual(minutos_pagina, minutos_juanito, delta=1, msg="Cantidad de minutos no coinciden")
