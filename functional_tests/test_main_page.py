@@ -9,8 +9,9 @@ from django.test import tag
 from .base import FunctionalTest, wait
 from datetime import date, timedelta, datetime
 from feriados.models import Feriado
+import pytz
 
-@wait(5)
+@wait(10)
 def get_countdown_table(test):
     return test.browser.find_element_by_css_selector('table.countdown-table')
 
@@ -36,11 +37,12 @@ class FeriadoCounterTests(FunctionalTest):
         ))
         # ... y calcula por su cuenta cuanto falta para el feriado
 
-        delta_juanito = datetime(*tomorrow.timetuple()[:6]) - datetime.now()
+        tzchile = pytz.timezone("Chile/Continental")
+        delta_juanito = tzchile.localize(datetime(*tomorrow.timetuple()[:3])) - datetime.now(tzchile)
 
         # primero compara los dias
 
-        self.assertEqual(delta_pagina['dias'], delta_juanito.days)
+        self.assertEqual(delta_pagina['dias'], delta_juanito.days, "Dias no coinciden")
 
         # y luego compara los minutos totales, con un margen de error (segun
         # lo que se haya demorado el en hacer el calculo: 1 minuto)
@@ -48,4 +50,4 @@ class FeriadoCounterTests(FunctionalTest):
         minutos_pagina = delta_pagina['horas']*60 + delta_pagina['minutos']
         minutos_juanito = delta_juanito.seconds // 60
 
-        self.assertAlmostEqual(minutos_pagina, minutos_juanito, delta=1)
+        self.assertAlmostEqual(minutos_pagina, minutos_juanito, delta=1, msg="Cantidad de minutos no coinciden")

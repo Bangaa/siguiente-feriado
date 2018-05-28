@@ -1,7 +1,9 @@
+import unittest
+import unittest.mock
 from django.test import TestCase
 from django.core.exceptions import ValidationError
 from feriados.models import Feriado
-from datetime import date
+from datetime import date, datetime
 
 class ModelTests(TestCase):
     def test_cant_create_two_feriados_with_the_same_date(self):
@@ -39,3 +41,20 @@ class ModelTests(TestCase):
         lista = Feriado.objects.all()
 
         self.assertEqual(list(lista), [f2,f3,f1])
+
+from feriados.models import DeltaFeriado
+import pytz
+
+class DeltaFeriadoTests(TestCase):
+    def setUp(self):
+        self.feriado = Feriado.objects.create(fecha=date(2018,7,2))
+
+    @unittest.mock.patch('feriados.models.datetime')
+    def test_gives_correct_time_difference(self, datetime_m):
+        datetime_m.now = lambda *argv,**kwargs: datetime.now(*argv, **kwargs).replace(2018,7,1,23,15,1)
+        datetime_m.side_effect = lambda *argv,**kwargs: datetime(*argv,**kwargs)
+
+        fd = DeltaFeriado(self.feriado, 'Chile/Continental')
+
+        self.assertEqual(fd.horas, 0)
+        self.assertEqual(fd.minutos, 44)
