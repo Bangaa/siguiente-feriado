@@ -51,11 +51,10 @@ class DeltaFeriadoTests(TestCase):
 
     @unittest.mock.patch('feriados.models.datetime')
     def test_gives_correct_time_difference(self, datetime_m):
-        datetime_m.now = lambda **kwargs: datetime(1990,12,30,23,15,1, tzinfo=kwargs.get('tz', None))
+        datetime_m.now = lambda *argv,**kwargs: datetime.now(*argv, **kwargs).replace(1990,12,30,23,15,1)
         datetime_m.side_effect = lambda *argv,**kwargs: datetime(*argv,**kwargs)
 
         fd = DeltaFeriado(self.feriado, 'Chile/Continental')
 
         self.assertEqual(fd.horas, 0)
         self.assertEqual(fd.minutos, 44)
-
