@@ -9,6 +9,7 @@ from django.test import tag
 from .base import FunctionalTest, wait
 from datetime import date, timedelta, datetime
 from feriados.models import Feriado
+import pytz
 
 @wait(10)
 def get_countdown_table(test):
@@ -36,7 +37,8 @@ class FeriadoCounterTests(FunctionalTest):
         ))
         # ... y calcula por su cuenta cuanto falta para el feriado
 
-        delta_juanito = datetime(*tomorrow.timetuple()[:6]) - datetime.now()
+        tzchile = pytz.timezone("Chile/Continental")
+        delta_juanito = tzchile.localize(datetime(*tomorrow.timetuple()[:3])) - datetime.now(tzchile)
 
         # primero compara los dias
 
