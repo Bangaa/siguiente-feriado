@@ -44,11 +44,14 @@ class Feriado(models.Model):
         ordering = ('fecha',)
 
 from datetime import datetime
+import pytz
+
 class DeltaFeriado(object):
-    def __init__(self, feriado):
+    def __init__(self, feriado, timezone='UTC'):
         if feriado is None:
             return None
-        delta = datetime(*feriado.fecha.timetuple()[:6]) - datetime.now()
+        tz_chile = pytz.timezone('Chile/Continental')
+        delta = datetime(*feriado.fecha.timetuple()[:6], tzinfo=tz_chile) - datetime.now(tz=pytz.timezone(timezone))
         self.dias = delta.days
         self.horas = delta.seconds // 3600
         self.minutos = delta.seconds%3600 // 60
