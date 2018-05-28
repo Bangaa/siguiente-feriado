@@ -47,11 +47,11 @@ import pytz
 
 class DeltaFeriadoTests(TestCase):
     def setUp(self):
-        self.feriado = Feriado.objects.create(fecha=date(1990,12,31))
+        self.feriado = Feriado.objects.create(fecha=date(2018,7,2))
 
     @unittest.mock.patch('feriados.models.datetime')
     def test_gives_correct_time_difference(self, datetime_m):
-        datetime_m.now = lambda *argv,**kwargs: datetime.now(*argv, **kwargs).replace(1990,12,30,23,15,1)
+        datetime_m.now = lambda *argv,**kwargs: datetime.now(*argv, **kwargs).replace(2018,7,1,23,15,1)
         datetime_m.side_effect = lambda *argv,**kwargs: datetime(*argv,**kwargs)
 
         fd = DeltaFeriado(self.feriado, 'Chile/Continental')

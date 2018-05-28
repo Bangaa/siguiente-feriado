@@ -47,13 +47,12 @@ from datetime import datetime
 import pytz
 
 class DeltaFeriado(object):
-    def __init__(self, feriado, timezone='UTC'):
+    def __init__(self, feriado, tzstr='UTC'):
         if feriado is None:
             return None
         tzchile = pytz.timezone('Chile/Continental')
-        timezone = pytz.timezone(timezone)
-        delta = tzchile.localize(datetime(*feriado.fecha.timetuple()[:3])) - timezone.localize(datetime.now())
+        tz = pytz.timezone(tzstr)
+        delta = tzchile.localize(datetime(*feriado.fecha.timetuple()[:3])) - datetime.now(tz)
         self.dias = delta.days
         self.horas = delta.seconds // 3600
         self.minutos = delta.seconds%3600 // 60
-

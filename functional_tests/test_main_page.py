@@ -10,7 +10,7 @@ from .base import FunctionalTest, wait
 from datetime import date, timedelta, datetime
 from feriados.models import Feriado
 
-@wait(5)
+@wait(10)
 def get_countdown_table(test):
     return test.browser.find_element_by_css_selector('table.countdown-table')
 
