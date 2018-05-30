@@ -39,6 +39,27 @@ def wait(max_wait):
         return mod_helper
     return wait_for_success
 
+def wait_for(fn, exc=WebDriverException, timeout=10):
+    """Wait for `fn` to return properly.
+    Execute `fn` and ignore the exceptions of the class `exc` for
+    `timeout` seconds top.
+    :param fn: function to be executed
+    :param exc: is catched and ignored until timemout
+    :returns: the return value of `fn`
+    """
+    if not callable(fn):
+        raise TypeError('<{fn!r}> is not callable.'.format(fn=fn))
+
+    start_time = time.time()
+    while True:
+        try:
+            return fn()
+        except exc:
+            if time.time() - start_time > timeout:
+                raise
+            else:
+                time.sleep(0.2)
+
 class FunctionalTest(StaticLiveServerTestCase):
     tags = {'functional-test'}
 
@@ -79,3 +100,4 @@ class FunctionalTest(StaticLiveServerTestCase):
             module=m.group('module'),
             windowid=self._windowid
         )
+
